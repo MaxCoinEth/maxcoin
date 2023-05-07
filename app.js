@@ -212,7 +212,7 @@ async function connectWallet() {
     contract = new web3.eth.Contract(contractABI, contractAddress);
     try {
       await window.ethereum.request({ method: 'eth_requestAccounts' });
-      userAccount = (await web3.eth.getAccounts())[0];
+      userAccount = userAccount = (await web3.eth.getAccounts())[0].toLowerCase();
       document.getElementById('connectButton').style.display = 'none';
 
 
