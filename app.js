@@ -1,4 +1,4 @@
-const contractAddress = '0xc34e288832670Da668Cf5D20c1bF5F3e0AE3b494';
+const contractAddress = '0xA143944113e46fA37CeebfdBcBEB32c5b18E3B05';
 const contractABI = [
 	{
 		"inputs": [
@@ -16,6 +16,13 @@ const contractABI = [
 	{
 		"inputs": [],
 		"name": "recoverTokens",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "togglePause",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -153,6 +160,19 @@ const contractABI = [
 	},
 	{
 		"inputs": [],
+		"name": "paused",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "token",
 		"outputs": [
 			{
@@ -179,7 +199,7 @@ const contractABI = [
 	}
 ];
 
-const merkleRoot = '0xa4afa9d7950e43bba0502f65bfa9d6c486291902fcc394eee35f4efc6498f08a';
+const merkleRoot = '0x9035e20a99c9e2c27f41b3bd793d7fa224cae1afaa524ee45382d2d38a9791e6';
 
 let web3;
 let userAccount;
