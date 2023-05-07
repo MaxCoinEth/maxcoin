@@ -232,6 +232,7 @@ async function connectWallet() {
   } else {
     alert('Please install MetaMask or another compatible wallet.');
   }
+	console.log(contractAddress);
 }
 
 async function claimTokens() {
