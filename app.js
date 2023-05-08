@@ -9,33 +9,38 @@ let contract;
 let proofs;
 
 async function connectWallet() {
-  if (window.ethereum) {
-    web3 = new Web3(window.ethereum);
-    contract = new web3.eth.Contract(contractABI, contractAddress);
-    try {
-      await window.ethereum.request({ method: 'eth_requestAccounts' });
-      userAccount = userAccount = (await web3.eth.getAccounts())[0].toLowerCase();
-      document.getElementById('connectButton').style.display = 'none';
-
-
-      // Read the proofs object from proofs.json
-      const response = await fetch('./proofs.json');
-      proofs = await response.json();
-
-      // Check if the user has a valid proof
-      if (proofs[userAccount]) {
-        document.getElementById('claimButton').disabled = false;
-      } else {
-        alert('Your address does not have a valid proof.');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  } else {
-    alert('Please install MetaMask or another compatible wallet.');
+	if (window.ethereum) {
+	  web3 = new Web3(window.ethereum);
+	  contract = new web3.eth.Contract(contractABI, contractAddress);
+	  try {
+		await window.ethereum.request({ method: 'eth_requestAccounts' });
+		userAccount = (await web3.eth.getAccounts())[0].toLowerCase();
+		document.getElementById('connectButton').style.display = 'none';
+  
+		// Read the proofs object from proofs.json
+		const response = await fetch('./proofs.json');
+		proofs = await response.json();
+  
+		// Convert all proof addresses to lowercase
+		const lowercaseProofs = Object.keys(proofs).reduce((acc, key) => {
+		  acc[key.toLowerCase()] = proofs[key];
+		  return acc;
+		}, {});
+  
+		// Check if the user has a valid proof
+		if (lowercaseProofs[userAccount]) {
+		  document.getElementById('claimButton').disabled = false;
+		} else {
+		  alert('Your address does not have a valid proof.');
+		}
+	  } catch (error) {
+		console.error(error);
+	  }
+	} else {
+	  alert('Please install MetaMask or another compatible wallet.');
+	}
+	console.log(contractAddress);
   }
-  console.log(contractAddress);
-}
 
 async function claimTokens() {
     const userProof = proofs[userAccount];
